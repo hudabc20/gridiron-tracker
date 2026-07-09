@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="112" fill="#0d1117"/>
-  <ellipse cx="256" cy="256" rx="150" ry="96" fill="#8b4a24" stroke="#3fb950" stroke-width="14"/>
-  <line x1="176" y1="256" x2="336" y2="256" stroke="#e6edf3" stroke-width="12" stroke-linecap="round"/>
-  <line x1="230" y1="240" x2="230" y2="272" stroke="#e6edf3" stroke-width="12" stroke-linecap="round"/>
-  <line x1="256" y1="236" x2="256" y2="276" stroke="#e6edf3" stroke-width="12" stroke-linecap="round"/>
-  <line x1="282" y1="240" x2="282" y2="272" stroke="#e6edf3" stroke-width="12" stroke-linecap="round"/>
+  <rect width="512" height="512" rx="112" fill="#2f4a6b"/>
+  <ellipse cx="256" cy="256" rx="150" ry="96" fill="#c98a5e" stroke="#fbf8f2" stroke-width="14"/>
+  <line x1="176" y1="256" x2="336" y2="256" stroke="#fbf8f2" stroke-width="12" stroke-linecap="round"/>
+  <line x1="230" y1="240" x2="230" y2="272" stroke="#fbf8f2" stroke-width="12" stroke-linecap="round"/>
+  <line x1="256" y1="236" x2="256" y2="276" stroke="#fbf8f2" stroke-width="12" stroke-linecap="round"/>
+  <line x1="282" y1="240" x2="282" y2="272" stroke="#fbf8f2" stroke-width="12" stroke-linecap="round"/>
 </svg>

@@ -3,18 +3,21 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<meta name="theme-color" content="#0d1117" />
+<meta name="theme-color" content="#f3eee4" />
 <title>Gridiron — Macro Tracker</title>
 <link rel="manifest" href="manifest.webmanifest" />
 <link rel="apple-touch-icon" href="icon.svg" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
 <style>
   :root{
-    --bg:#0d1117; --card:#161b22; --card2:#1c232c; --line:#2a323c;
-    --txt:#e6edf3; --muted:#9aa7b4; --accent:#3fb950; --accent2:#58a6ff;
-    --cal:#f0883e; --pro:#58a6ff; --carb:#3fb950; --fat:#db61a2; --danger:#f85149;
-    --radius:16px; font-size:16px;
+    --bg:#f3eee4; --card:#fffdf8; --card2:#f2ebdd; --line:#e7ddca;
+    --txt:#2d2822; --muted:#8c8272; --accent:#2f4a6b; --accent2:#3d6390;
+    --cal:#d98c3f; --pro:#c05f4a; --carb:#6f8f5f; --fat:#8a6b9e; --danger:#b5483a;
+    --radius:18px; font-size:16px;
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+    --shadow:0 1px 2px rgba(70,50,25,.05), 0 6px 20px rgba(70,50,25,.05);
+    color-scheme:light;
   }
   *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
   html,body{margin:0}
@@ -24,34 +27,34 @@
     padding:env(safe-area-inset-top) env(safe-area-inset-right) 96px env(safe-area-inset-left);
     max-width:560px; margin:0 auto;
   }
-  header{padding:20px 18px 10px}
-  header h1{margin:0; font-size:1.35rem; letter-spacing:.3px}
-  header .date{color:var(--muted); font-size:.85rem; margin-top:2px}
+  header{padding:24px 20px 8px}
+  header h1{margin:0; font-family:var(--serif); font-size:1.5rem; font-weight:600; letter-spacing:.2px}
+  header .date{color:var(--muted); font-size:.85rem; margin-top:3px}
   main{padding:0 14px}
-  .card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:16px; margin:12px 0}
-  .card h2{margin:0 0 12px; font-size:1rem; color:var(--muted); font-weight:600; text-transform:uppercase; letter-spacing:.6px}
+  .card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:18px; margin:14px 0; box-shadow:var(--shadow)}
+  .card h2{margin:0 0 14px; font-family:var(--serif); font-size:1.15rem; color:var(--txt); font-weight:600; letter-spacing:0}
   label{display:block; font-size:.8rem; color:var(--muted); margin:10px 0 4px}
   input,select,button{font:inherit}
   input,select{
     width:100%; padding:11px 12px; background:var(--card2); border:1px solid var(--line);
-    color:var(--txt); border-radius:10px; outline:none;
+    color:var(--txt); border-radius:12px; outline:none;
   }
-  input:focus,select:focus{border-color:var(--accent2)}
+  input:focus,select:focus{border-color:var(--accent); box-shadow:0 0 0 3px rgba(47,74,107,.12)}
   .row{display:flex; gap:10px}
   .row>*{flex:1}
   button{
-    border:none; border-radius:10px; padding:12px 14px; font-weight:600; cursor:pointer;
-    background:var(--accent); color:#04140a;
+    border:none; border-radius:12px; padding:12px 14px; font-weight:600; cursor:pointer;
+    background:var(--accent); color:#fbf8f2;
   }
-  button.ghost{background:var(--card2); color:var(--txt); border:1px solid var(--line)}
+  button.ghost{background:transparent; color:var(--accent); border:1px solid var(--line)}
   button.small{padding:8px 10px; font-size:.85rem}
-  .hint{font-size:.78rem; color:var(--muted); margin-top:8px; line-height:1.4}
+  .hint{font-size:.78rem; color:var(--muted); margin-top:8px; line-height:1.5}
 
   /* targets ring row */
   .rings{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; text-align:center}
-  .ring{background:var(--card2); border-radius:12px; padding:10px 4px}
-  .ring .n{font-size:1.15rem; font-weight:700}
-  .ring .l{font-size:.68rem; color:var(--muted); text-transform:uppercase; letter-spacing:.4px}
+  .ring{background:var(--card2); border-radius:14px; padding:12px 4px}
+  .ring .n{font-family:var(--serif); font-size:1.25rem; font-weight:600}
+  .ring .l{font-size:.7rem; color:var(--muted); letter-spacing:0; margin-top:2px}
 
   /* progress */
   .bar{height:10px; background:var(--card2); border-radius:6px; overflow:hidden; margin:6px 0 2px}
@@ -73,12 +76,27 @@
   /* food library search */
   .results{margin:6px 0 2px}
   .res{display:flex; justify-content:space-between; align-items:center; gap:8px; padding:10px 12px; background:var(--card2); border:1px solid var(--line); border-radius:10px; margin-top:6px; cursor:pointer}
-  .res:active{border-color:var(--accent2); background:#20272f}
+  .res:active{border-color:var(--accent); background:#efe7d7}
   .res .rn{font-size:.9rem}
   .res .rs{font-size:.72rem; color:var(--muted)}
   .res .rc{font-size:.78rem; color:var(--muted); white-space:nowrap; text-align:right}
   .selected{background:var(--card2); border:1px solid var(--accent); border-radius:10px; padding:9px 12px; margin:8px 0 2px; font-size:.82rem; display:flex; justify-content:space-between; align-items:center}
   .selected .clr{background:none; border:none; color:var(--muted); cursor:pointer; font-size:1rem}
+  .servHint{font-size:.76rem; color:var(--accent); margin:6px 2px 2px; display:none}
+
+  /* morning weigh-in */
+  #weighCard{border-color:rgba(47,74,107,.22)}
+  .weighNow{display:flex; justify-content:space-between; align-items:flex-start; gap:12px}
+  .wBig{font-family:var(--serif); font-size:2.3rem; font-weight:600; line-height:1; color:var(--accent)}
+  .wBig span{font-size:1rem; color:var(--muted); font-weight:600}
+  .wSub{font-size:.74rem; color:var(--muted); margin-top:3px}
+  .wDeltas{text-align:right; font-size:.8rem; color:var(--muted); line-height:1.6; white-space:nowrap}
+  .wUp{color:#6f8f5f} .wDown{color:#c05f4a}
+  .wRemind{font-size:.8rem; color:var(--muted); margin-top:10px; line-height:1.4}
+  .weighPrompt{display:flex; gap:10px}
+  .weighPrompt input{flex:1}
+  .weighPrompt button{flex:0 0 auto}
+  #wEdit{margin-top:10px}
 
   .nav{display:flex; align-items:center; justify-content:space-between; margin-bottom:2px}
   .nav button{background:var(--card2); color:var(--txt); border:1px solid var(--line); padding:6px 12px}
@@ -89,14 +107,14 @@
   /* barcode scanner */
   #scanBtn{margin-top:8px; width:100%}
   dialog.scan{background:var(--card); color:var(--txt); border:1px solid var(--line); border-radius:16px; padding:0; width:min(94vw,460px); max-width:460px}
-  dialog.scan::backdrop{background:rgba(0,0,0,.72)}
+  dialog.scan::backdrop{background:rgba(45,40,34,.55)}
   .scanWrap{padding:16px}
   .scanHead{display:flex; justify-content:space-between; align-items:center; font-weight:600; margin-bottom:12px}
   .scanHead .x{background:none; border:none; color:var(--muted); font-size:1.2rem; cursor:pointer; padding:2px 6px}
   #reader{border-radius:12px; overflow:hidden; background:#000; min-height:220px}
   #reader video{border-radius:12px}
   .scanStatus{font-size:.82rem; color:var(--muted); text-align:center; margin:12px 0 4px; line-height:1.4}
-  .toast{position:fixed; left:50%; bottom:24px; transform:translateX(-50%); background:var(--accent2); color:#04121f; padding:10px 16px; border-radius:10px; font-size:.85rem; opacity:0; transition:opacity .25s; pointer-events:none; z-index:50}
+  .toast{position:fixed; left:50%; bottom:24px; transform:translateX(-50%); background:var(--accent); color:#fbf8f2; padding:10px 16px; border-radius:12px; font-size:.85rem; box-shadow:var(--shadow); opacity:0; transition:opacity .25s; pointer-events:none; z-index:50}
   .toast.show{opacity:1}
 </style>
 </head>
@@ -117,6 +135,14 @@
       <div class="ring"><div class="n" id="tFat">–</div><div class="l">fat</div></div>
     </div>
     <div class="hint" id="targetHint">Set your profile below to calculate targets.</div>
+  </section>
+
+  <!-- MORNING WEIGH-IN -->
+  <section class="card" id="weighCard">
+    <h2>Morning Weigh-In</h2>
+    <div id="weighBody"></div>
+    <canvas id="bwChart" height="120" style="width:100%; margin-top:12px"></canvas>
+    <div class="hint" id="bwHint"></div>
   </section>
 
   <!-- TODAY PROGRESS -->
@@ -157,17 +183,27 @@
     <label>Food name</label>
     <input id="fName" placeholder="Pick from library above, or type your own" />
     <div class="row">
-      <div><label>Servings</label><input id="fServ" type="number" inputmode="decimal" step="0.5" value="1" /></div>
+      <div><label>Amount</label><input id="fAmt" type="number" inputmode="decimal" step="any" value="1" /></div>
+      <div><label>Unit</label>
+        <select id="fUnit">
+          <option value="serving">serving(s)</option>
+          <option value="g">grams</option>
+          <option value="oz">oz</option>
+        </select>
+      </div>
+    </div>
+    <div class="servHint" id="servHint"></div>
+    <div class="row">
       <div><label>Calories</label><input id="fCal" type="number" inputmode="numeric" placeholder="0" /></div>
+      <div><label>Protein g</label><input id="fPro" type="number" inputmode="numeric" placeholder="0" /></div>
     </div>
     <div class="row">
-      <div><label>Protein g</label><input id="fPro" type="number" inputmode="numeric" placeholder="0" /></div>
       <div><label>Carbs g</label><input id="fCarb" type="number" inputmode="numeric" placeholder="0" /></div>
       <div><label>Fat g</label><input id="fFat" type="number" inputmode="numeric" placeholder="0" /></div>
     </div>
     <div style="height:12px"></div>
     <button id="addFood">＋ Add to log</button>
-    <div class="hint">Search grabs the numbers for you — change <b>Servings</b> and they scale automatically. No match? Just type your own; it's saved to Quick Add for next time.</div>
+    <div class="hint">Pick a food, then log it by <b>servings, grams, or oz</b> — the macros scale automatically. No match? Type your own; it's saved to Quick Add.</div>
   </section>
 
   <!-- QUICK ADD -->
@@ -210,17 +246,6 @@
     </select>
     <div style="height:14px"></div>
     <button id="saveProfile">Save &amp; calculate targets</button>
-  </section>
-
-  <!-- BODY WEIGHT -->
-  <section class="card">
-    <h2>Body Weight Trend</h2>
-    <div class="row">
-      <input id="bwInput" type="number" inputmode="decimal" placeholder="Today's weight (lb)" />
-      <button class="small" id="bwSave" style="flex:0 0 auto">Log</button>
-    </div>
-    <canvas id="bwChart" height="120" style="width:100%; margin-top:12px"></canvas>
-    <div class="hint" id="bwHint">Log your weight a few times a week to see the trend.</div>
   </section>
 
   <!-- DATA -->
@@ -271,47 +296,48 @@ db.weights = db.weights || {};  // { "2026-07-08": 175 }
 db.favorites = db.favorites || [];
 
 /* ---------- food library (per serving) ---------- */
-// [name, serving label, cal, protein, carbs, fat]
+// [name, serving label, cal, protein, carbs, fat, grams-per-serving]
 const FOODS = [
-  ["Chicken breast","4 oz cooked",187,35,0,4],
-  ["Chicken thigh","4 oz cooked",235,30,0,12],
-  ["Ground beef 90/10","4 oz cooked",199,23,0,11],
-  ["Sirloin steak","4 oz cooked",206,33,0,7],
-  ["Salmon","4 oz cooked",233,25,0,14],
-  ["Tuna, canned in water","1 can (5 oz)",120,27,0,1],
-  ["Shrimp","4 oz cooked",120,23,1,2],
-  ["Turkey breast, ground","4 oz cooked",170,22,0,9],
-  ["Pork chop","4 oz cooked",210,29,0,10],
-  ["Whole egg","1 large",72,6,0,5],
-  ["Egg whites","1 cup",126,26,2,0],
-  ["Greek yogurt, nonfat","1 cup",130,22,9,0],
-  ["Cottage cheese, low-fat","1 cup",180,24,8,5],
-  ["Whey protein","1 scoop",120,24,3,1],
-  ["White rice","1 cup cooked",205,4,45,0],
-  ["Brown rice","1 cup cooked",216,5,45,2],
-  ["Oats, dry","1/2 cup",150,5,27,3],
-  ["Sweet potato","1 medium",112,2,26,0],
-  ["Potato","1 medium",163,4,37,0],
-  ["Pasta","1 cup cooked",220,8,43,1],
-  ["Whole wheat bread","1 slice",80,4,14,1],
-  ["Bagel","1 medium",245,10,48,2],
-  ["Flour tortilla","1 (8 in)",140,4,24,3],
-  ["Banana","1 medium",105,1,27,0],
-  ["Apple","1 medium",95,0,25,0],
-  ["Blueberries","1 cup",84,1,21,0],
-  ["Broccoli","1 cup cooked",55,4,11,1],
-  ["Mixed greens","2 cups",15,1,3,0],
-  ["Peanut butter","2 tbsp",190,8,7,16],
-  ["Almonds","1 oz (~23)",164,6,6,14],
-  ["Olive oil","1 tbsp",119,0,0,14],
-  ["Avocado","1/2 medium",120,2,6,11],
-  ["Whole milk","1 cup",149,8,12,8],
-  ["2% milk","1 cup",122,8,12,5],
-  ["Cheddar cheese","1 oz",115,7,0,9],
-  ["Honey","1 tbsp",64,0,17,0],
-  ["Rice cake","1 cake",35,1,7,0],
-].map(a=>({name:a[0],serving:a[1],cal:a[2],pro:a[3],carb:a[4],fat:a[5]}));
+  ["Chicken breast","4 oz cooked",187,35,0,4,113],
+  ["Chicken thigh","4 oz cooked",235,30,0,12,113],
+  ["Ground beef 90/10","4 oz cooked",199,23,0,11,113],
+  ["Sirloin steak","4 oz cooked",206,33,0,7,113],
+  ["Salmon","4 oz cooked",233,25,0,14,113],
+  ["Tuna, canned in water","1 can (5 oz)",120,27,0,1,142],
+  ["Shrimp","4 oz cooked",120,23,1,2,113],
+  ["Turkey breast, ground","4 oz cooked",170,22,0,9,113],
+  ["Pork chop","4 oz cooked",210,29,0,10,113],
+  ["Whole egg","1 large",72,6,0,5,50],
+  ["Egg whites","1 cup",126,26,2,0,243],
+  ["Greek yogurt, nonfat","1 cup",130,22,9,0,227],
+  ["Cottage cheese, low-fat","1 cup",180,24,8,5,226],
+  ["Whey protein","1 scoop",120,24,3,1,31],
+  ["White rice","1 cup cooked",205,4,45,0,158],
+  ["Brown rice","1 cup cooked",216,5,45,2,195],
+  ["Oats, dry","1/2 cup",150,5,27,3,40],
+  ["Sweet potato","1 medium",112,2,26,0,130],
+  ["Potato","1 medium",163,4,37,0,173],
+  ["Pasta","1 cup cooked",220,8,43,1,140],
+  ["Whole wheat bread","1 slice",80,4,14,1,28],
+  ["Bagel","1 medium",245,10,48,2,105],
+  ["Flour tortilla","1 (8 in)",140,4,24,3,49],
+  ["Banana","1 medium",105,1,27,0,118],
+  ["Apple","1 medium",95,0,25,0,182],
+  ["Blueberries","1 cup",84,1,21,0,148],
+  ["Broccoli","1 cup cooked",55,4,11,1,156],
+  ["Mixed greens","2 cups",15,1,3,0,56],
+  ["Peanut butter","2 tbsp",190,8,7,16,32],
+  ["Almonds","1 oz (~23)",164,6,6,14,28],
+  ["Olive oil","1 tbsp",119,0,0,14,14],
+  ["Avocado","1/2 medium",120,2,6,11,100],
+  ["Whole milk","1 cup",149,8,12,8,244],
+  ["2% milk","1 cup",122,8,12,5,244],
+  ["Cheddar cheese","1 oz",115,7,0,9,28],
+  ["Honey","1 tbsp",64,0,17,0,21],
+  ["Rice cake","1 cake",35,1,7,0,9],
+].map(a=>({name:a[0],serving:a[1],cal:a[2],pro:a[3],carb:a[4],fat:a[5],grams:a[6]}));
 
+const OZ = 28.3495;        // grams per ounce
 let selectedBase = null;   // library food currently chosen
 
 /* ---------- macro math ---------- */
@@ -410,12 +436,12 @@ function renderChart(){
   const pad=30;
   const x=i=>pad+(i/(entries.length-1))*(w-pad*2);
   const y=v=>h-pad-((v-min)/(max-min))*(h-pad*2);
-  ctx.strokeStyle="#3fb950"; ctx.lineWidth=4; ctx.beginPath();
+  ctx.strokeStyle="#2f4a6b"; ctx.lineWidth=4; ctx.beginPath();
   entries.forEach((e,i)=>{ i?ctx.lineTo(x(i),y(e[1])):ctx.moveTo(x(i),y(e[1])); });
   ctx.stroke();
-  ctx.fillStyle="#3fb950";
+  ctx.fillStyle="#2f4a6b";
   entries.forEach((e,i)=>{ ctx.beginPath(); ctx.arc(x(i),y(e[1]),5,0,7); ctx.fill(); });
-  ctx.fillStyle="#9aa7b4"; ctx.font="22px sans-serif";
+  ctx.fillStyle="#8c8272"; ctx.font="22px sans-serif";
   ctx.fillText(max.toFixed(0)+" lb",4,y(max)+8);
   ctx.fillText(min.toFixed(0)+" lb",4,y(min)+8);
 }
@@ -437,33 +463,63 @@ function renderResults(q){
 }
 function pickFood(f){
   selectedBase=f;
-  $("fServ").value=1;
-  $("fName").value=`${f.name} (${f.serving})`;
-  applyServings();
+  $("fUnit").value="serving"; $("fAmt").value=1;
+  $("fName").value=f.name;
+  applyAmount();
+  updateServHint();
   $("fSearch").value=""; $("searchResults").innerHTML="";
   renderSelected();
 }
-function applyServings(){
+// scale = how many servings the current Amount+Unit works out to
+function currentScale(){
+  if(!selectedBase) return 1;
+  const amt=Number($("fAmt").value)||0, unit=$("fUnit").value;
+  if(unit==="g")  return selectedBase.grams ? amt/selectedBase.grams : 0;
+  if(unit==="oz") return selectedBase.grams ? (amt*OZ)/selectedBase.grams : 0;
+  return amt; // servings
+}
+function applyAmount(){
   if(!selectedBase) return;
-  const s=Number($("fServ").value)||0;
+  const s=currentScale();
   $("fCal").value=Math.round(selectedBase.cal*s);
   $("fPro").value=Math.round(selectedBase.pro*s);
   $("fCarb").value=Math.round(selectedBase.carb*s);
   $("fFat").value=Math.round(selectedBase.fat*s);
+  updateServHint();
+}
+function updateServHint(){
+  const h=$("servHint");
+  if(!selectedBase){ h.textContent=""; h.style.display="none"; return; }
+  h.style.display="block";
+  if(selectedBase.grams){
+    const oz=(selectedBase.grams/OZ).toFixed(1);
+    h.textContent=`1 serving = ${selectedBase.serving} ≈ ${selectedBase.grams} g (${oz} oz)`;
+  } else {
+    h.textContent=`1 serving = ${selectedBase.serving} · (no gram data — use servings)`;
+  }
+}
+// human label of the amount being logged, e.g. "6 oz" or "1 × 4 oz cooked"
+function amountLabel(){
+  const amt=Number($("fAmt").value)||0, unit=$("fUnit").value;
+  if(unit==="g")  return `${amt} g`;
+  if(unit==="oz") return `${amt} oz`;
+  return amt===1 ? selectedBase.serving : `${amt} × ${selectedBase.serving}`;
 }
 function renderSelected(){
   const b=$("selectedBox");
   if(!selectedBase){ b.innerHTML=""; return; }
-  b.innerHTML=`<div class="selected"><span>📋 ${escapeHtml(selectedBase.name)} · auto-filled per serving</span><button class="clr" id="clrSel" aria-label="clear">✕</button></div>`;
+  b.innerHTML=`<div class="selected"><span>📋 ${escapeHtml(selectedBase.name)} · scaling by amount</span><button class="clr" id="clrSel" aria-label="clear">✕</button></div>`;
   $("clrSel").onclick=clearFoodForm;
 }
 function clearFoodForm(){
   selectedBase=null;
   ["fName","fCal","fPro","fCarb","fFat","fSearch"].forEach(id=>$(id).value="");
-  $("fServ").value=1; $("searchResults").innerHTML=""; renderSelected();
+  $("fAmt").value=1; $("fUnit").value="serving";
+  $("searchResults").innerHTML=""; updateServHint(); renderSelected();
 }
 $("fSearch").addEventListener("input",e=>renderResults(e.target.value));
-$("fServ").addEventListener("input",applyServings);
+$("fAmt").addEventListener("input",applyAmount);
+$("fUnit").addEventListener("change",applyAmount);
 
 /* ---------- barcode scanning ---------- */
 let scanner=null, scanBusy=false;
@@ -502,21 +558,22 @@ function closeScanner(){ stopScanner(); const d=$("scanDlg"); if(d.open) d.close
 async function lookupBarcode(code){
   setScanStatus("🔎 Looking up "+code+"…");
   try{
-    const url=`https://world.openfoodfacts.org/api/v2/product/${encodeURIComponent(code)}.json?fields=product_name,brands,serving_size,nutriments`;
+    const url=`https://world.openfoodfacts.org/api/v2/product/${encodeURIComponent(code)}.json?fields=product_name,brands,serving_size,serving_quantity,nutriments`;
     const r=await fetch(url);
     const j=await r.json();
     if(j.status!==1 || !j.product){ setScanStatus("Not in the database (barcode "+code+"). Tap ‘Scan again’ or type it in below."); return; }
     const p=j.product, n=p.nutriments||{};
-    let serving, cal, pro, carb, fat;
+    let serving, grams, cal, pro, carb, fat;
     if(n["energy-kcal_serving"]!=null){
       serving=p.serving_size || "1 serving";
+      grams=Number(p.serving_quantity)||null;
       cal=n["energy-kcal_serving"]; pro=n.proteins_serving; carb=n.carbohydrates_serving; fat=n.fat_serving;
     } else {
-      serving="100 g";
+      serving="100 g"; grams=100;
       cal=n["energy-kcal_100g"]; pro=n.proteins_100g; carb=n.carbohydrates_100g; fat=n.fat_100g;
     }
     const name=[p.brands, p.product_name].filter(Boolean).join(" — ") || ("Item "+code);
-    pickFood({ name, serving, cal:Math.round(cal||0), pro:Math.round(pro||0), carb:Math.round(carb||0), fat:Math.round(fat||0) });
+    pickFood({ name, serving, grams, cal:Math.round(cal||0), pro:Math.round(pro||0), carb:Math.round(carb||0), fat:Math.round(fat||0) });
     closeScanner();
     toast("Loaded: "+name.slice(0,28));
   }catch(e){
@@ -538,7 +595,8 @@ function openScannerCamera(){
 
 /* ---------- actions ---------- */
 $("addFood").onclick=()=>{
-  const name=$("fName").value.trim(); if(!name){ toast("Name your food"); return; }
+  const base=$("fName").value.trim(); if(!base){ toast("Name your food"); return; }
+  const name = selectedBase ? `${base} · ${amountLabel()}` : base;
   const f={name, cal:num($("fCal").value), pro:num($("fPro").value), carb:num($("fCarb").value), fat:num($("fFat").value)};
   day().foods.push(f);
   // remember as favorite (dedupe by name)
@@ -559,12 +617,47 @@ $("saveProfile").onclick=()=>{
   db.profile=p; save(db); renderTargets(); renderProgress(); toast("Targets updated");
 };
 
-$("bwSave").onclick=()=>{
-  const v=Number($("bwInput").value); if(!v){ toast("Enter a weight"); return; }
+let weighEditing=false;
+function logWeight(v){
+  if(!v){ toast("Enter a weight"); return; }
   db.weights[todayISO()]=v;
-  if(db.profile){ db.profile.weight=v; renderTargets(); renderProgress(); }
-  save(db); $("bwInput").value=""; renderChart(); toast("Weight logged");
-};
+  if(db.profile){ db.profile.weight=v; $("pWeight").value=v; renderTargets(); renderProgress(); }
+  save(db); renderWeighIn(); renderChart(); toast("Weight logged");
+}
+function deltaLine(label,ref,cur){
+  if(!ref) return `<div>${label}: —</div>`;
+  const d=+(cur-ref[1]).toFixed(1);
+  const cls=d>0?"wUp":d<0?"wDown":"";
+  const arrow=d>0?"▲":d<0?"▼":"–";
+  const sign=d>0?"+":"";
+  return `<div>${label}: <span class="${cls}">${arrow} ${sign}${d}</span></div>`;
+}
+function renderWeighIn(){
+  const body=$("weighBody"), today=todayISO(), has=db.weights[today]!=null;
+  if(has && !weighEditing){
+    const cur=db.weights[today];
+    const entries=Object.entries(db.weights).filter(([d])=>d<=today).sort((a,b)=>a[0]<b[0]?-1:1);
+    const prev=entries.filter(([d])=>d<today).slice(-1)[0];
+    const wk=new Date(today+"T00:00"); wk.setDate(wk.getDate()-7);
+    const wkISO=wk.toISOString().slice(0,10);
+    const weekRef=entries.filter(([d])=>d<=wkISO).slice(-1)[0];
+    body.innerHTML=`<div class="weighNow">
+      <div><div class="wBig">${cur}<span> lb</span></div><div class="wSub">logged today ✓</div></div>
+      <div class="wDeltas">${deltaLine("vs last",prev,cur)}${deltaLine("7-day",weekRef,cur)}</div>
+    </div>
+    <button class="ghost small" id="wEdit">Update today's weight</button>`;
+    $("wEdit").onclick=()=>{ weighEditing=true; renderWeighIn(); };
+  } else {
+    body.innerHTML=`<div class="weighPrompt">
+      <input id="bwInput" type="number" inputmode="decimal" placeholder="Today's weight (lb)" value="${has?db.weights[today]:""}" />
+      <button class="small" id="bwSave">Log</button>
+    </div>
+    <div class="wRemind">☀️ Weigh in first thing — after the bathroom, before eating, same time daily. That's the number that tracks true.</div>`;
+    const submit=()=>{ weighEditing=false; logWeight(Number($("bwInput").value)); };
+    $("bwSave").onclick=submit;
+    $("bwInput").addEventListener("keydown",e=>{ if(e.key==="Enter") submit(); });
+  }
+}
 
 $("prevDay").onclick=()=>{ shiftDay(-1); };
 $("nextDay").onclick=()=>{ shiftDay(1); };
@@ -594,7 +687,7 @@ function initFields(){
   $("pSex").value=p.sex; $("pAge").value=p.age; $("pWeight").value=p.weight;
   $("pHeight").value=p.height; $("pAct").value=p.act; $("pGoal").value=p.goal;
 }
-function renderAll(){ renderTargets(); renderDay(); renderProgress(); renderFoods(); renderQuick(); renderChart(); }
+function renderAll(){ renderTargets(); renderWeighIn(); renderDay(); renderProgress(); renderFoods(); renderQuick(); renderChart(); }
 
 $("todayLabel").textContent=fmtDate(todayISO());
 initFields(); renderAll();
